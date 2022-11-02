@@ -56,6 +56,33 @@ state = {
     );
   };
 
+//   добавь хранение контактов телефонной книги в localStorage. Используй методы жизненного цикла.
+
+  // При добавлении и удалении контакта, контакты сохраняются в локальное хранилище. +++
+// При загрузке приложения, контакты, если таковые есть , считываются из локального хранилища и записываются в состояние.
+  
+  componentDidMount() { 
+    console.log('MOUNT');
+
+    const contactsLS = localStorage.getItem('contacts')
+    const parsedContacts = JSON.parse(contactsLS)
+    if(parsedContacts){
+      this.setState({ contacts: parsedContacts })
+    }
+    
+  };
+
+  componentDidUpdate(prevProps, prevState) { 
+    console.log(prevState);
+    console.log(this.state);
+    
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+    }
+  };
+
+  // componentWillUnmount () {}
+
   render() {
     const visibleContacts = this.getVisibleContacts();
     const { filter } = this.state;
