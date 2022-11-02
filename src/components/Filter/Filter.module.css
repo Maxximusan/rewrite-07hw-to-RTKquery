@@ -1,0 +1,10 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 300px;
+}
+
+.field__input {
+  width: 200px;
+}

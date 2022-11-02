@@ -1,0 +1,16 @@
+.list {
+  /* list-style: none; */
+  padding-left: 30px;
+}
+
+.item {
+  padding: 10px;
+}
+
+.item__btn {
+  margin-left: 5px;
+}
+.item__btn:hover,
+.item__btn:focus {
+  background: rgb(204, 80, 80);
+}
