@@ -1,49 +1,62 @@
-import React from 'react'
+import {useState} from 'react'
 import { nanoid } from 'nanoid';
 import css from 'components/Form/Form.module.css'
 
 
-export class Form extends React.Component {
+export const Form = (props) => {
+  const { submit } = props
+  
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+ 
 
-    state = {
-      name: '',
-      number: ''
-    }
-
-     inputChange = (event) => {
+    const inputChange = (event) => {
     const { name, value } = event.target;
-    // console.log(event.target.name);
-    // console.log(event.currentTarget.value);
-    this.setState({[name]: value})
+  
+       switch (name) {
+         case 'name':
+           setName(value);
+           break;
+         
+         case 'number':
+           setNumber(value);
+           break;
+         
+         default:
+           return;
+       }
+    
   }
 
-  formSubmit = (event) => {
-    event.preventDefault();
-    // console.log(this.state);
-this.props.submit(this.state)
-    this.clearForm()
-  }
-
-  clearForm = () => {
-    this.setState({
-      name: '',
-      number: '',
-    });
+  const clearForm = () => {
+    setName('');
+    setNumber('')
+   
     };
+
+  const formSubmit = (event) => {
+    event.preventDefault();
+
+    submit({ name, number })
     
-    nameInputId = nanoid();
-    telInputId = nanoid()
+    clearForm()
+  }
+
+
     
-    render() {
+    const nameInputId = nanoid();
+   const  telInputId = nanoid()
+    
+   
         return (
-            <form onSubmit={this.formSubmit} className={css.form}>
-          <label htmlFor={this.nameInputId} className={css.form__field}>
+            <form onSubmit={formSubmit} className={css.form}>
+          <label htmlFor={nameInputId} className={css.form__field}>
             Name:
              <input
-              id={this.nameInputId}     
+              id={nameInputId}     
               className={css.form__input}
-              value={this.state.name}
-              onChange={this.inputChange}
+              value={name}
+              onChange={inputChange}
               name="name"
               type="text"
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -52,13 +65,13 @@ this.props.submit(this.state)
               
             />
           </label>
-          <label htmlFor={this.telInputId} className={css.form__field}>
+          <label htmlFor={telInputId} className={css.form__field}>
             Number:
             <input
-              id={this.telInputId}  
+              id={telInputId}  
               className={css.form__input} 
-              value={this.state.number}
-              onChange={this.inputChange}
+              value={number}
+              onChange={inputChange}
               name="number"
               type="tel"
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -70,5 +83,5 @@ this.props.submit(this.state)
           <button className={css.form__btn} type="submit">Add contact!</button>
         </form>
         )
-    }
+   
 }

@@ -1,69 +1,44 @@
-import React from 'react'
+import {useState, useEffect} from 'react'
 import { nanoid } from 'nanoid';
 import { Form } from 'components/Form/Form'
 import { ContactList } from 'components/Contacts/Contacts'
 import { Filter } from 'components/Filter/Filter'
 import css from 'components/App.module.css'
 
-export class App extends React.Component {
+export const App = () => {
 
-state = {
-  contacts: [
-    // { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-    // { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-    // { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    // { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  ],
-  filter: '',
-}
+  const [contacts, setContacts] = useState([]);
+  const [filter, setFilter] = useState('');
 
-  //   добавь хранение контактов телефонной книги в localStorage. Используй методы жизненного цикла.
-
-  // При добавлении и удалении контакта, контакты сохраняются в локальное хранилище. +++
-// При загрузке приложения, контакты, если таковые есть , считываются из локального хранилища и записываются в состояние.
-  
-  componentDidMount() { 
-    console.log('MOUNT');
-
-    const contactsLS = localStorage.getItem('contacts')
+ 
+  useEffect(() => {
+      const contactsLS = localStorage.getItem('contacts')
     const parsedContacts = JSON.parse(contactsLS)
     if(parsedContacts){
-      this.setState({ contacts: parsedContacts })
+      setContacts(parsedContacts )
     }
-    
-  };
+  }, []);
 
-  componentDidUpdate(prevProps, prevState) { 
-    console.log(prevState);
-    console.log(this.state);
-    
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
-    }
-  };
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts))
+  }, [contacts]);
 
-  // componentWillUnmount () {}
+
+
 
   
-  
-  // dataFormSubmit = data => {
-  //   console.log(data);
-  // };
-
-    onFilterChange = filter => {
-    this.setState({ filter });
+    const onFilterChange = filter => {
+    setFilter(filter);
   };
 
-  deleteContact = (contactId) => {
-    this.setState((prevState) => ({
-      contacts: prevState.contacts.filter(
+  const deleteContact = (contactId) => {
+    setContacts(contacts.filter(
         (contact) => contact.id !== contactId
-      ),
-    }));
+      ));
   };
 
-  addContact = ({ name, number }) => {
-    const { contacts } = this.state;
+  const addContact = ({ name, number }) => {
+    
     const newContact = { id: nanoid(), name, number };
     const checkUser = contacts.find(
       (contact) => contact.name === newContact.name
@@ -71,13 +46,12 @@ state = {
 
     checkUser
       ? alert(`${name} is already in the contacts`)
-      : this.setState((prevState) => ({
-          contacts: [newContact, ...contacts],
-        }));
-  };
+      : setContacts([newContact, ...contacts]);
+        };
+  // };
 
-  getVisibleContacts = () => {
-    const { filter, contacts } = this.state;
+  const getVisibleContacts = () => {
+    
     const normalizedFilter = filter.toLowerCase();
     return contacts.filter((contact) =>
       contact.name.toLowerCase().includes(normalizedFilter)
@@ -85,35 +59,22 @@ state = {
   };
 
 
-  render() {
-    const visibleContacts = this.getVisibleContacts();
-    const { filter } = this.state;
+  
+    
+   
     return (
       <div className={css.container}>
         <h1>Phonebook</h1>
-        <Form submit={this.addContact} />
+        <Form submit={addContact} />
         
         <h2>Contacts</h2>
-        <Filter filter={filter} onFilterChange={this.onFilterChange} />
+        <Filter filter={filter} onFilterChange={onFilterChange} />
         <ContactList
-           contacts={visibleContacts}
-          onDeleteContact={this.deleteContact}/>
+           contacts={getVisibleContacts()}
+          onDeleteContact={deleteContact}/>
       </div>
       )
-  };
+  
 
-  // return (
-  //   <div
-  //     style={{
-  //       height: '100vh',
-  //       display: 'flex',
-  //       justifyContent: 'center',
-  //       alignItems: 'center',
-  //       fontSize: 40,
-  //       color: '#010101'
-  //     }}
-  //   >
-  //     React homework template
-  //   </div>
-  // );
+  
 };
