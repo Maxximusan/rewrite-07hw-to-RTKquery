@@ -32,3 +32,4 @@ export const { filterChange } = FilterSlice.actions;
 console.log(ContactsSlice.actions);
 console.log(FilterSlice.actions);
 console.log(ContactsSlice.reducer);
+console.log(FilterSlice.reducer);

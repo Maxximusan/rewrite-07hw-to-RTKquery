@@ -8,34 +8,25 @@ import css from 'components/App.module.css'
 export const App = () => {
 
   const [contacts, setContacts] = useState(JSON.parse(window.localStorage.getItem('contacts')) ?? []); 
-  const [filter, setFilter] = useState('');
+  // const [filter, setFilter] = useState('');
 
  
-  // useEffect(() => {
-  //     const contactsLS = localStorage.getItem('contacts')
-  //   const parsedContacts = JSON.parse(contactsLS)
-  //   if(parsedContacts){
-  //     setContacts(parsedContacts )
-  //   }
-  // }, []);
-
+  
   useEffect(() => {
     window.localStorage.setItem('contacts', JSON.stringify(contacts))
   }, [contacts]);
 
 
-
-
   
-    const onFilterChange = filter => {
-    setFilter(filter);
-  };
+  //   const onFilterChange = filter => {
+  //   setFilter(filter);
+  // };
 
-  const deleteContact = (contactId) => {
-    setContacts(contacts.filter(
-        (contact) => contact.id !== contactId
-      ));
-  };
+  // const deleteContact = (contactId) => {
+  //   setContacts(contacts.filter(
+  //       (contact) => contact.id !== contactId
+  //     ));
+  // };
 
   const addContact = ({ name, number }) => {
     
@@ -50,13 +41,13 @@ export const App = () => {
         };
   // };
 
-  const getVisibleContacts = () => {
+  // const getVisibleContacts = () => {
     
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-  };
+  //   const normalizedFilter = filter.toLowerCase();
+  //   return contacts.filter((contact) =>
+  //     contact.name.toLowerCase().includes(normalizedFilter)
+  //   );
+  // };
 
 
   
@@ -68,10 +59,9 @@ export const App = () => {
         <Form submit={addContact} />
         
         <h2>Contacts</h2>
-        <Filter filter={filter} onFilterChange={onFilterChange} />
+        <Filter />
         <ContactList
-           contacts={getVisibleContacts()}
-          onDeleteContact={deleteContact}/>
+          />
       </div>
       )
   
