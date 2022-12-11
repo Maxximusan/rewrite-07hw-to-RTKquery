@@ -1,13 +1,13 @@
 // import PropTypes from 'prop-types';
 import css from 'components/Filter/Filter.module.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { filterChange } from '../../Redux/ToolkitSlice'
+import { filterChange, getFilter } from '../../Redux/ToolkitSlice'
 
  
   
 export const Filter = () => {
 const dispatch = useDispatch();
-  const filter = useSelector(state => state.filter);
+  const filter = useSelector(getFilter);
 
     return (
       <div >

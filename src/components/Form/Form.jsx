@@ -1,14 +1,17 @@
 import {useState} from 'react'
 import { nanoid } from 'nanoid';
 import css from 'components/Form/Form.module.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact, getContacts } from '../../Redux/ToolkitSlice'
 
-
-export const Form = (props) => {
-  const { submit } = props
+export const Form = () => {
   
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts)
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
- 
+  
 
     const inputChange = (event) => {
     const { name, value } = event.target;
@@ -34,20 +37,34 @@ export const Form = (props) => {
    
     };
 
+ 
+  
+    const addContacts = ({ name, number }) => {
+    
+    const newContact = { id: nanoid(), name, number };
+    const checkUser = contacts.find(
+      (contact) => contact.name === newContact.name
+    );
+
+    checkUser
+      ? alert(`${name} is already in the contacts`)
+      : dispatch(addContact(newContact));
+  };
+  
+  
   const formSubmit = (event) => {
     event.preventDefault();
 
-    submit({ name, number })
+    addContacts({ name, number })
     
     clearForm()
   }
-
-
     
     const nameInputId = nanoid();
    const  telInputId = nanoid()
     
-   
+ 
+  
         return (
             <form onSubmit={formSubmit} className={css.form}>
           <label htmlFor={nameInputId} className={css.form__field}>
