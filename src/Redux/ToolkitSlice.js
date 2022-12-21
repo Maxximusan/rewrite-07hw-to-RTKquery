@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './operations';
 
-// используем immer
+// используем immer - 1й вариант
 const handlePending = state => {
   state.isLoading = true;
 };
@@ -46,6 +46,81 @@ export const ContactsSlice = createSlice({
     [deleteContact.rejected]: handleRejected,
   },
 });
+
+// // без IMMER! - 2й вариант
+// export const ContactsSlice = createSlice({
+//   name: 'contacts',
+//   initialState: {
+//     contacts: [],
+//     isLoading: false,
+//     error: null,
+//   },
+//   extraReducers: {
+//     [fetchContacts.pending]: state => {
+//       return {
+//         ...state,
+//         isLoading: true,
+//       };
+//     },
+//     [fetchContacts.fulfilled]: (state, action) => {
+//       return {
+//         ...state,
+//         contacts: action.payload,
+//         isLoading: false,
+//       };
+//     },
+//     [fetchContacts.rejected]: (state, action) => {
+//       return {
+//         ...state,
+//         error: action.payload,
+//         isLoading: false,
+//       };
+//     },
+
+//     [addContact.pending]: state => {
+//       return {
+//         ...state,
+//         isLoading: true,
+//       };
+//     },
+//     [addContact.fulfilled]: (state, action) => {
+//       return {
+//         ...state,
+//         contacts: [...state.contacts, action.payload],
+//         isLoading: false,
+//       };
+//     },
+//     [addContact.rejected]: (state, action) => {
+//       return {
+//         ...state,
+//         error: action.payload,
+//         isLoading: false,
+//       };
+//     },
+
+//     [deleteContact.pending]: state => {
+//       return {
+//         ...state,
+//         isLoading: true,
+//       };
+//     },
+//     [deleteContact.fulfilled]: (state, action) => {
+//       return {
+//         ...state,
+//         isLoading: false,
+//         contacts: state.contacts.filter(
+//           contact => contact.id !== action.payload.id
+//         ),
+//       };
+//     },
+//     [deleteContact.rejected]: state => {
+//       return {
+//         ...state,
+//         isLoading: false,
+//       };
+//     },
+//   },
+// });
 
 export const FilterSlice = createSlice({
   name: 'filter',
