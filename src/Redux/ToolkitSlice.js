@@ -1,19 +1,49 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchContacts, addContact, deleteContact } from './operations';
+
+// используем immer
+const handlePending = state => {
+  state.isLoading = true;
+};
+
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
 
 export const ContactsSlice = createSlice({
   name: 'contacts',
   initialState: {
     contacts: [],
+    isLoading: false,
+    error: null,
   },
-  reducers: {
-    addContact(state, action) {
+  extraReducers: {
+    [fetchContacts.pending]: handlePending,
+    [fetchContacts.fulfilled](state, action) {
+      state.isLoading = false;
+      state.contacts = action.payload;
+      state.error = null;
+    },
+    [fetchContacts.rejected]: handleRejected,
+
+    [addContact.pending]: handlePending,
+    [addContact.fulfilled](state, action) {
+      state.error = null;
+      state.isLoading = false;
       state.contacts.push(action.payload);
     },
-    deleteContact(state, action) {
+    [addContact.rejected]: handleRejected,
+
+    [deleteContact.pending]: handlePending,
+    [deleteContact.fulfilled](state, action) {
+      state.error = null;
+      state.isLoading = false;
       state.contacts = state.contacts.filter(
-        contact => contact.id !== action.payload
+        contact => contact.id !== action.payload.id
       );
     },
+    [deleteContact.rejected]: handleRejected,
   },
 });
 
@@ -26,20 +56,10 @@ export const FilterSlice = createSlice({
     },
   },
 });
-
-export const { addContact, deleteContact } = ContactsSlice.actions;
 export const { filterChange } = FilterSlice.actions;
-
-// export default ContactsSlice.reducer;
-// export default FilterSlice.reducer
 
 // SELECTORS
 export const getContacts = state => state.contacts.contacts;
 export const getFilter = state => state.filter;
-
-console.log(ContactsSlice.actions);
-console.log(FilterSlice.actions);
-console.log(ContactsSlice.reducer);
-console.log(FilterSlice.reducer);
-console.log(getContacts);
-console.log(getFilter);
+export const getIsLoading = state => state.contacts.isLoading;
+export const getError = state => state.contacts.error;
