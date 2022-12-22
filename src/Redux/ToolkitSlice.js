@@ -67,6 +67,7 @@ export const ContactsSlice = createSlice({
 //         ...state,
 //         contacts: action.payload,
 //         isLoading: false,
+//         error: null,
 //       };
 //     },
 //     [fetchContacts.rejected]: (state, action) => {
@@ -88,6 +89,7 @@ export const ContactsSlice = createSlice({
 //         ...state,
 //         contacts: [...state.contacts, action.payload],
 //         isLoading: false,
+//         error: null,
 //       };
 //     },
 //     [addContact.rejected]: (state, action) => {
@@ -107,6 +109,7 @@ export const ContactsSlice = createSlice({
 //     [deleteContact.fulfilled]: (state, action) => {
 //       return {
 //         ...state,
+//         error: null,
 //         isLoading: false,
 //         contacts: state.contacts.filter(
 //           contact => contact.id !== action.payload.id
@@ -117,6 +120,7 @@ export const ContactsSlice = createSlice({
 //       return {
 //         ...state,
 //         isLoading: false,
+//        error: action.payload,
 //       };
 //     },
 //   },

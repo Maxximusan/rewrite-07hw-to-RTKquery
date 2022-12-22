@@ -8,6 +8,7 @@ export const fetchContacts = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const contacts = MockAPI.fetchContacts();
+      console.log(contacts);
       return contacts;
       //   const { data } = await axios.get('/contacts');
       //   return data;

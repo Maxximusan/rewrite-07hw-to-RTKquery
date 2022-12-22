@@ -10,9 +10,9 @@ const dispatch = useDispatch();
   const filter = useSelector(getFilter);
 
     return (
-      <div >
+      <div className={css.filterContainer}>
       <label className={css.field}>
-        Find contacts by Name
+        Find contact by Name
         <input
           className={css.field__input}
             type="text"

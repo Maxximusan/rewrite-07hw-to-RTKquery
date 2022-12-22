@@ -22,14 +22,21 @@ export const App = () => {
    
     return (
       <div className={css.container}>
-        <h1>Phonebook</h1>
-        <Form  />
-        
-        <h2>Contacts</h2>
-        <Filter />
-        {isloading && !error && <Loader />}
-        <ContactList
-          />
+        <header className={css.header}>
+          <h1 className={css.header__title}>Phonebook</h1>
+        </header>
+        <div className={css.sectionsContainer}>
+          <section className={css.addList}>
+            <h2 className={css.title}>Add Contact</h2>
+           <Form  />
+          </section>
+          <section className={css.contactsList}>
+            <h2 className={css.title}>Contacts</h2>
+            <Filter />
+            {isloading && !error && <Loader />}
+            <ContactList />
+          </section>
+        </div>
       </div>
       )
   

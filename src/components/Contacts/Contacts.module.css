@@ -4,13 +4,24 @@
 }
 
 .item {
+  /* display: flex;
+  justify-content: space-between; */
   padding: 10px;
 }
 
+.item__container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .item__btn {
-  margin-left: 5px;
+  /* margin-left: 5px; */
+  border-radius: 1em;
+  border-color: tomato;
 }
 .item__btn:hover,
 .item__btn:focus {
-  background: rgb(204, 80, 80);
+  background: rgb(255, 59, 59);
+  /* border: none; */
+  border-color: rgba(255, 59, 59, 0.884);
 }

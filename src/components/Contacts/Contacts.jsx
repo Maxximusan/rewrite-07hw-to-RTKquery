@@ -22,10 +22,12 @@ console.log(filter);
     <ol className={css.list}>
       {visibleContacts.map(({ id, name, number }) => (
         <li key={id} className={css.item}>
-          {name}: {number}
+          <div className={css.item__container}>
+          <p>{name}: {number}</p>
           <button className={css.item__btn}type="button" onClick={() => dispatch(deleteContact(id))}>
             Delete
-          </button>
+            </button>
+            </div>
         </li>
       ))}
     </ol>
