@@ -23,6 +23,7 @@
 
 .form__btn {
   width: 120px;
+  padding: 3px;
   border-radius: 1em;
   /* border-color: rgb(0, 255, 21); */
   border-color: aqua;
