@@ -14,6 +14,18 @@
   justify-content: space-between;
 }
 
+.item__name {
+  color: rgb(27, 27, 87);
+  font-family: 'Fira sans', sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+}
+
+.item__number {
+  color: rgb(90, 42, 221);
+  font-family: 'Menlo, monospace';
+}
 .item__btn {
   /* margin-left: 5px; */
   border-radius: 1em;

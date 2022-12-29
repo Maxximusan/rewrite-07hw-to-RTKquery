@@ -23,7 +23,10 @@ console.log(filter);
       {visibleContacts.map(({ id, name, number }) => (
         <li key={id} className={css.item}>
           <div className={css.item__container}>
-          <p>{name}: {number}</p>
+            <p>
+            <span className={css.item__name}>{name}: </span>
+              <span className={css.item__number}>{number}</span>
+              </p>
           <button className={css.item__btn}type="button" onClick={() => dispatch(deleteContact(id))}>
             Delete
             </button>
