@@ -126,6 +126,53 @@ export const ContactsSlice = createSlice({
 //   },
 // });
 
+
+// №3 (от 2024) - вариант №1 устарел, этот современен:
+
+// extraReducers: 
+//   (builder) => {
+//       builder
+//         .addCase(fetchContacts.pending, state => {
+//           state.isLoading = true;
+//         })
+//         .addCase(fetchContacts.fulfilled, (state, action) => {
+//           state.isLoading = false;
+//           state.error = null;
+//           state.contacts = action.payload;
+//         })
+//         .addCase(fetchContacts.rejected, (state, action) => {
+//           state.isLoading = false;
+//           state.error = action.error.message;
+//         })
+//         .addCase(fetchAddContact.pending, (state, action) => {
+//           state.isLoading = true;
+//         })
+//         .addCase(fetchAddContact.fulfilled, (state, action) => {
+//           state.isLoading = false;
+//           state.error = null;
+//           state.contacts.push(action.payload);
+//         })
+//         .addCase(fetchAddContact.rejected, (state, action) => {
+//           state.isLoading = false;
+//           state.error = action.error.message;
+//         })
+//         .addCase(fetchDeleteContact.pending, (state, action) => {
+//           state.isLoading = true;
+//         })
+//         .addCase(fetchDeleteContact.fulfilled, (state, action) => {
+//           state.isLoading = false;
+//           state.contacts = state.contacts.filter(
+//             contact => contact.id !== action.payload.id
+//           );
+//         })
+//         .addCase(fetchDeleteContact.rejected, (state, action) => {
+//           state.isLoading = false;
+//           state.error = action.error.message;
+//         });
+//       }
+
+
+
 export const FilterSlice = createSlice({
   name: 'filter',
   initialState: '',
